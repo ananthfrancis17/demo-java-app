@@ -51,7 +51,6 @@ pipeline {
                     sh '''
                         mvn deploy \
                         -e -X \
-                        -s /var/lib/jenkins/.m2/settings.xml \
                         -Dmaven.test.skip=true \
                         -Dartifactory.username=${ARTIFACTORY_CREDENTIALS_USR} \
                         -Dartifactory.password=${ARTIFACTORY_CREDENTIALS_PSW} \
