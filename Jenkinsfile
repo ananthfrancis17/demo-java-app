@@ -48,7 +48,7 @@ pipeline {
 
         stage('Publish Artifacts'){
             steps {
-                sh 'jf "rt u target/*.jar libs-release-local/"'
+                sh 'jf "rt u target/*.jar libs-release-local/ –-server-id server-1"'
             }
         }
         
