@@ -4,6 +4,7 @@ pipeline {
     tools {
         maven 'Maven'
         jdk 'JDK11'
+        jfrog 'jfrog-cli'
     }
     
     environment {
@@ -42,6 +43,12 @@ pipeline {
                 timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
+            }
+        }
+
+        stage('Publish Artifacts'){
+            steps {
+                sh 'jf "rt u target/*.jar libs-release-local/"'
             }
         }
         
