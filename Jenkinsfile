@@ -10,6 +10,10 @@ pipeline {
     environment {
         SONAR_CREDENTIALS = credentials('sonar-token')
         ARTIFACTORY_CREDENTIALS = credentials('artifactory-credentials')
+        DEPLOY_SERVER = '10.0.2.76' // Replace with your server IP
+        DEPLOY_USER = 'ssm-user'     // Replace with your server username
+        DEPLOY_PATH = '/opt/application' // Replace with your target directory
+        SSH_CREDENTIALS = credentials('deploy-ssh') // Add SSH credentials in Jenkins
     }
     
     stages {
@@ -49,6 +53,26 @@ pipeline {
         stage('Publish Artifacts'){
             steps {
                 jf 'rt u target/*.jar libs-release-local/'
+            }
+        }
+
+        stage('Deploy to Server') {
+            steps {
+                script {
+                    // Create target directory if it doesn't exist
+                    sshagent(['ssh-credentials']) {
+                        sh """
+                            # Create directory if it doesn't exist
+                            ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_SERVER} "mkdir -p ${DEPLOY_PATH}"
+                            
+                            # Copy the JAR file
+                            scp -o StrictHostKeyChecking=no target/*.jar ${DEPLOY_USER}@${DEPLOY_SERVER}:${DEPLOY_PATH}/
+                            
+                            # Optional: Restart service if needed
+                            ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_SERVER} "pwd"
+                        """
+                    }
+                }
             }
         }
         
