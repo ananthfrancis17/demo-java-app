@@ -12,7 +12,7 @@ pipeline {
         ARTIFACTORY_CREDENTIALS = credentials('artifactory-credentials')
         DEPLOY_SERVER = '10.0.2.76' // Replace with your server IP
         DEPLOY_USER = 'ssm-user'     // Replace with your server username
-        DEPLOY_PATH = '/opt/application' // Replace with your target directory
+        DEPLOY_PATH = '/home/ssm-user/application' // Replace with your target directory
         SSH_CREDENTIALS = credentials('deploy-ssh') // Add SSH credentials in Jenkins
     }
     
