@@ -52,7 +52,7 @@ pipeline {
 
         stage('Publish Artifacts'){
             steps {
-                jf 'rt u target/*.jar libs-release-local/'
+                jf 'rt u target/*.jar firstjob/'
             }
         }
 
