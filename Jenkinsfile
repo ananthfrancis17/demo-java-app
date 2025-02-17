@@ -60,7 +60,7 @@ pipeline {
             steps {
                 script {
                     // Create target directory if it doesn't exist
-                    sshagent(['ssh-credentials']) {
+                    sshagent(['deploy-ssh']) {
                         sh """
                             # Create directory if it doesn't exist
                             ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_SERVER} "mkdir -p ${DEPLOY_PATH}"
