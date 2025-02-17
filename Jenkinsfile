@@ -52,20 +52,6 @@ pipeline {
             }
         }
         
-        stage('Deploy to Artifactory') {
-            steps {
-                script {
-                    sh '''
-                        mvn deploy \
-                        -e -X \
-                        -Dmaven.test.skip=true \
-                        -Dartifactory.username=${ARTIFACTORY_CREDENTIALS_USR} \
-                        -Dartifactory.password=${ARTIFACTORY_CREDENTIALS_PSW} \
-                        -DaltDeploymentRepository=artifactory::default::http://devops-1548912442.ap-southeast-1.elb.amazonaws.com:82/artifactory/libs-snapshot-local
-                    '''
-                }
-            }
-        }
     }
     
     post {
