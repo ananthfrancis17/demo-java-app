@@ -10,7 +10,7 @@ pipeline {
     environment {
         SONAR_CREDENTIALS = credentials('sonar-token')
         ARTIFACTORY_CREDENTIALS = credentials('artifactory-credentials')
-        DEPLOY_SERVER = '10.0.2.76' // Replace with your server IP
+        DEPLOY_SERVER = '10.0.2.76' // Replace with your server Iasa
         DEPLOY_USER = 'ssm-user'     // Replace with your server username
         DEPLOY_PATH = '/home/ssm-user/application' // Replace with your target directory
         SSH_CREDENTIALS = credentials('deploy-ssh') // Add SSH credentials in Jenkin
